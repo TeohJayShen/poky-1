@@ -205,6 +205,11 @@ SSTATE_DIR = \"${TOPDIR}/download-selftest\"
         result = runCmd('bitbake -R conf/postfile.conf -e | grep TEST_POSTFILE=')
         self.assertIn('postfile', result.output)
 
+    def test_taskexp_tty(self):
+        cmd = 'bitbake -g -u taskexp_tty zlib acl'
+        result = runCmd(cmd)
+        self.assertEqual(0, result.status, "Command %s didn't run as expected. %s" % (cmd, result.output))
+
     def test_checkuri(self):
         result = runCmd('bitbake -c checkuri m4')
         self.assertEqual(0, result.status, msg = "\"checkuri\" task was not executed. bitbake output: %s" % result.output)
